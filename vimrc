@@ -432,7 +432,7 @@ set t_Co=256
 set laststatus=2 " Always display the statusline in all windows
 set showtabline=1
 let g:Powerline_colorscheme='solarized256'
-set noshowmode " Hide the default mode text (e.g. -- INSERT -- below the statusline)
+"set noshowmode " Hide the default mode text (e.g. -- INSERT -- below the statusline)
  
 " }}}
 
