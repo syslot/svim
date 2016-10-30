@@ -5,6 +5,14 @@
 "				    |___/  \__, | |___/ |_|  \___/   \__|     |___/     \_/   |_| |_| |_| |_|
 "				           |___/
 "				
+"                    /**
+"                    * @file .vimrc
+"                    * @This is syslot's vimrc, enjoy it!
+"                    
+"                    * @author syslot
+"                    * @version 1.0
+"                    * @date 2016-10-30
+"                    */
 "
 
 " Vim Ui config {{{ 
@@ -69,13 +77,12 @@ call neobundle#begin(expand('~/.vim/bundle/'))
 " Let NeoBundle manage NeoBundle
 " Required:
 NeoBundleFetch 'Shougo/neobundle.vim'
-NeoBundle 'airblade/vim-rooter'
+
+" Complete & Highlight {{{{
 NeoBundle 'Valloric/YouCompleteMe'
 NeoBundle 'rdnetto/YCM-Generator'
-NeoBundle 'artur-shaik/vim-javacomplete2'
-NeoBundle 'Valloric/MatchTagAlways'
-NeoBundle 'ternjs/tern_for_vim'
-" for color_coded
+NeoBundle 'robturtle/newycm_extra_conf.py'
+
 NeoBundleLazy 'jeaye/color_coded', { 
   \ 'build': {
     \   'unix': 'cmake . -DDOWNLOAD_CLANG=0 && make && make install',
@@ -83,77 +90,115 @@ NeoBundleLazy 'jeaye/color_coded', {
   \ 'autoload': { 'filetypes' : ['c', 'cpp', 'objc', 'objcpp'] },
   \ 'build_commands' : ['cmake', 'make']
 \}
+NeoBundle 'Mizuchi/STL-Syntax'
 NeoBundle 'scrooloose/syntastic'
-NeoBundle 'robturtle/newycm_extra_conf.py'
-NeoBundle 'mileszs/ack.vim'
+
+NeoBundle 'artur-shaik/vim-javacomplete2'
+NeoBundle 'ternjs/tern_for_vim'
+NeoBundle 'Valloric/MatchTagAlways'
+NeoBundle 'mattn/emmet-vim'
+" }}}}
+
+" Nerdtree {{{{
 NeoBundle 'scrooloose/nerdtree'
+NeoBundle 'scrooloose/nerdcommenter'
 NeoBundle 'Xuyuanp/nerdtree-git-plugin'
 NeoBundle 'tiagofumo/vim-nerdtree-syntax-highlight'
-NeoBundle 'airblade/vim-gitgutter'
-NeoBundle 'vim-scripts/taglist.vim'
+" }}}}
+
+" Layout Tools {{{{
+NeoBundle 'majutsushi/tagbar'
 NeoBundle 'brookhong/cscope.vim'
 NeoBundle 'vim-scripts/SrcExpl'
+NeoBundle 'vim-scripts/TagHighlight'
+NeoBundle 'jlanzarotta/bufexplorer'
+NeoBundle 'rizzatti/dash.vim'
+NeoBundle 'Yggdroot/indentLine'
+NeoBundle 'mileszs/ack.vim'
+NeoBundle 'vim-airline/vim-airline'
+NeoBundle 'vim-airline/vim-airline-themes'
+" }}}}
+
+" VCS or Fold Manage {{{{
+NeoBundle 'airblade/vim-rooter'
+NeoBundle 'airblade/vim-gitgutter'
+NeoBundle 'sjl/gundo.vim'
+NeoBundle 'int3/vim-extradite'
+NeoBundle 'tpope/vim-fugitive'
+NeoBundle 'gregsexton/gitv'
+" }}}}
+
+" Code Snipper{{{{
+NeoBundle 'vim-scripts/DoxygenToolkit.vim'
 NeoBundle 'Raimondi/delimitMate'
 NeoBundle 'honza/vim-snippets'
 NeoBundle 'SirVer/ultisnips'
-NeoBundle 'mattn/emmet-vim'
-NeoBundle 'tpope/vim-surround/'
+" }}}}
+
+" Async tools {{{{
 NeoBundle 'tpope/vim-dispatch'
 NeoBundle 'thoughtbot/vim-rspec'
-NeoBundle 'vim-scripts/TagHighlight'
+" }}}}
+
+" Effective Tools {{{{
 NeoBundle 'Lokaltog/vim-easymotion'
+NeoBundle 'tpope/vim-surround'
+NeoBundle 'NLKNguyen/papercolor-theme'
+
 NeoBundle 'Shougo/unite.vim'
 NeoBundle 'rstacruz/vim-fastunite'
 NeoBundle 'Shougo/neomru.vim'
 NeoBundle 'Shougo/unite-outline'
 NeoBundle 'tsukkee/unite-tag'
 NeoBundle 'amitab/vim-unite-cscope'
+
 NeoBundle 'dkprice/vim-easygrep'
-NeoBundle 'Shougo/vimproc.vim'
-NeoBundle 'L9'
-NeoBundle 'tmhedberg/SimpylFold'
-NeoBundle 'https://github.com/jstemmer/gotags.git'
-"go代码补全的插件
-NeoBundle 'nsf/gocode', {'rtp': 'vim/'}
-"go代码跳转提示
-NeoBundle 'fatih/vim-go'
-"代码结构提示
-NeoBundle 'majutsushi/tagbar'
-"自动规范import
-NeoBundle 'onlytiancai/flake8'
-NeoBundle 'nose-devs/nose'
-NeoBundle 'vim-scripts/DoxygenToolkit.vim'
-NeoBundle 'Mizuchi/STL-Syntax'
-NeoBundle 'sjl/gundo.vim'
-NeoBundle 'suan/vim-instant-markdown'
-NeoBundle 'scrooloose/nerdcommenter'
-NeoBundle 'jlanzarotta/bufexplorer'
-NeoBundle 'bjoernd/vim-ycm-tex'
-NeoBundle 'LaTeX-Box-Team/LaTeX-Box'
-NeoBundle 'rizzatti/dash.vim'
-NeoBundle 'mattn/vim-particle'
 NeoBundle 'chrisbra/vim-diff-enhanced'
 NeoBundle 'vim-scripts/DirDiff.vim'
-NeoBundle 'adimit/prolog.vim'
-NeoBundle 'jcfaria/Vim-R-plugin'
-NeoBundle 'vim-airline/vim-airline'
-NeoBundle 'vim-airline/vim-airline-themes'
+NeoBundle 'Shougo/vimproc.vim'
+NeoBundle 'joonty/vdebug'
+NeoBundle 'L9'
+NeoBundle 'mhinz/vim-startify'
+" }}}}
+ 
+" golang {{{{
+NeoBundle 'nsf/gocode', {'rtp': 'vim/'}
+NeoBundle 'fatih/vim-go'
+" }}}}
+
+" Python {{{{
 NeoBundle 'klen/python-mode'
 NeoBundle 'hdima/python-syntax'
-NeoBundle 'joonty/vdebug'
-NeoBundle 'NLKNguyen/papercolor-theme'
-NeoBundle 'mhinz/vim-startify'
-NeoBundle 'blindFS/vim-taskwarrior'
-NeoBundle 'int3/vim-extradite'
-NeoBundle 'tpope/vim-fugitive'
-NeoBundle 'gregsexton/gitv'
-NeoBundle 'Yggdroot/indentLine'
+NeoBundle 'suan/vim-instant-markdown'
+NeoBundle 'tmhedberg/SimpylFold'
+NeoBundle 'onlytiancai/flake8'
+NeoBundle 'nose-devs/nose'
+" }}}}
+ 
+" Latex {{{{
+NeoBundle 'bjoernd/vim-ycm-tex'
+NeoBundle 'LaTeX-Box-Team/LaTeX-Box'
+" }}}}
+
+" Prolog {{{{
+NeoBundle 'adimit/prolog.vim'
+" }}}}
+
+" R {{{{
+NeoBundle 'jcfaria/Vim-R-plugin'
+" }}}}
+
 call neobundle#end()
 
 call plug#begin('~/.vim/plugged')
+" Effective Tools {{{{
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
+" }}}}
+ 
+" Icon {{{{
 Plug 'ryanoasis/vim-devicons'
+" }}}}
 call plug#end()
 
 filetype plugin indent on
@@ -453,7 +498,7 @@ xmap <C-k>     <Plug>(neosnippet_expand_target)
 let g:DoxygenToolkit_briefTag_pre="@brief \n" 
 let g:DoxygenToolkit_paramTag_pre="@param \n" 
 let g:DoxygenToolkit_returnTag="@returns " 
-let g:DoxygenToolkit_authorName="yuning"
+let g:DoxygenToolkit_authorName="syslot"
 let g:DoxygenToolkit_versionTag="@version 1.0"
 let g:DoxygenToolkit_licenseTag="GPL 2.0"
 
