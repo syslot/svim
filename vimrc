@@ -5,14 +5,14 @@
 "				    |___/  \__, | |___/ |_|  \___/   \__|     |___/     \_/   |_| |_| |_| |_|
 "				           |___/
 "				
-"                    /**
-"                    * @file .vimrc
-"                    * @This is syslot's vimrc, enjoy it!
-"                    
-"                    * @author syslot
-"                    * @version 1.0
-"                    * @date 2016-10-30
-"                    */
+"                                                                              /**
+"                                                                              * @file .vimrc
+"                                                                              * @This is syslot's vimrc, enjoy it!
+"                                                                              
+"                                                                              * @author syslot
+"                                                                              * @version 1.0
+"                                                                              * @date 2016-10-30
+"                                                                              */
 "
 
 " Vim Ui config {{{ 
