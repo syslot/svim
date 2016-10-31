@@ -1,0 +1,2 @@
+# svim
+syslot's vimrc
