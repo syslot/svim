@@ -188,6 +188,11 @@ NeoBundle 'adimit/prolog.vim'
 NeoBundle 'jcfaria/Vim-R-plugin'
 " }}}}
 
+" Json & Html{{{{
+NeoBundle 'elzr/vim-json'
+NeoBundle 'sukima/xmledit'
+" }}}}
+
 call neobundle#end()
 
 call plug#begin('~/.vim/plugged')
@@ -209,7 +214,7 @@ syntax on
 " Code Complate {{{
 
 " Omni Engine Complate 
-filetype plugin indent on
+filetype indent on
 autocmd FileType python setlocal et sta sw=4 sts=4
 autocmd FileType python set omnifunc=pythoncomplete#Complete
 autocmd FileType python colorscheme molokai
@@ -222,13 +227,13 @@ autocmd FileType xml set omnifunc=xmlcomplete#CompleteTags
 autocmd FileType java set omnifunc=javacomplete#Complete
 autocmd FileType c set omnifunc=ccomplete#Complete
 
-" auto set omnifunc by filetype
-" if has("autocmd") && exists("+omnifunc")
-" autocmd Filetype *
-" \ if &omnifunc == "" |
-" \ setlocal omnifunc=syntaxcomplete#Complete |
-" \ endif
-" endif
+"auto set omnifunc by filetype
+if has("autocmd") && exists("+omnifunc")
+autocmd Filetype *
+\ if &omnifunc == "" |
+\ setlocal omnifunc=syntaxcomplete#Complete |
+\ endif
+endif
 
 let OmniCpp_NamespaceSearch=2
 let OmniCpp_GlobalScopeSearch=1
@@ -274,6 +279,18 @@ let g:ycm_complete_in_strings = 1
 let g:ycm_collect_identifiers_from_comments_and_strings = 0
 let g:ycm_semantic_triggers = {}
 let g:ycm_semantic_triggers.c = ['->', '.', ' ', '(', '[', '&','::']
+let g:ycm_semantic_triggers =  {
+  \   'objc' : ['->', '.', 're!\[[_a-zA-Z]+\w*\s', 're!^\s*[^\W\d]\w*\s',
+  \             're!\[.*\]\s'],
+  \   'ocaml' : ['.', '#'],
+  \   'cpp,objcpp' : ['->', '.', '::'],
+  \   'perl' : ['->'],
+  \   'php' : ['->', '::'],
+  \   'cs,java,javascript,typescript,d,python,perl6,scala,vb,elixir' : ['.'],
+  \   'ruby' : ['.', '::'],
+  \   'lua' : ['.', ':'],
+  \   'erlang' : [':'],
+  \ }
 
 "YCM Complete menu Colorscheme
 highlight Pmenu guibg=darkgrey guifg=black
@@ -295,6 +312,9 @@ nnoremap <leader>lc :lclose<CR>  "close locationlist
 inoremap <leader><leader> <C-x><C-o>
 nnoremap <Leader>jd :YcmCompleter GoToDefinitionElseDeclaration<CR>
 nnoremap <D-j> :YcmCompleter GoToDeclaration<CR> 
+
+filetype plugin indent on
+syntax on
 
 " }}}
 
@@ -746,4 +766,14 @@ autocmd FileType go let b:Dispather = 'go build %'
 let g:rspec_command = "Dispatch rspec {spec}"
 let g:rspec_runner = "os_x_iterm2"
 
+" }}}
+" JavaComplete2 {{{
+autocmd FileType java setlocal omnifunc=javacomplete#Complete
+autocmd FileType java inoremap <buffer> . .<C-X><C-O><C-P><Down>
+
+let g:JavaComplete_MavenRepositoryDisable = 1
+let g:JavaComplete_UseFQN = 1
+let g:JavaComplete_ClosingBrace = 1
+let g:JavaComplete_JavaviDebug = 1
+let g:JavaComplete_ImportDefault = 0
 " }}}
