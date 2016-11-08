@@ -115,6 +115,7 @@ NeoBundle 'jlanzarotta/bufexplorer'
 NeoBundle 'rizzatti/dash.vim'
 NeoBundle 'Yggdroot/indentLine'
 NeoBundle 'mileszs/ack.vim'
+NeoBundle 'luochen1990/rainbow'
 NeoBundle 'vim-airline/vim-airline'
 NeoBundle 'vim-airline/vim-airline-themes'
 " }}}}
@@ -159,11 +160,21 @@ NeoBundle 'Shougo/vimproc.vim'
 NeoBundle 'joonty/vdebug'
 NeoBundle 'L9'
 NeoBundle 'mhinz/vim-startify'
+
+NeoBundle 'vim-scripts/YankRing.vim'
+
+NeoBundle 'kshenoy/vim-signature'
 " }}}}
- 
+
+" Graph {{{{
+NeoBundle 'dhruvasagar/vim-table-mode'
+NeoBundle 'junegunn/vim-easy-align'
+" }}}}
+
 " golang {{{{
 NeoBundle 'nsf/gocode', {'rtp': 'vim/'}
 NeoBundle 'fatih/vim-go'
+NeoBundle 'buoto/gotests-vim'
 " }}}}
 
 " Python {{{{
@@ -188,6 +199,11 @@ NeoBundle 'adimit/prolog.vim'
 NeoBundle 'jcfaria/Vim-R-plugin'
 " }}}}
 
+" Haskell {{{{
+NeoBundle 'neovimhaskell/haskell-vim'
+NeoBundle 'begriffs/haskell-vim-now'
+" }}}}
+
 " Json & Html{{{{
 NeoBundle 'elzr/vim-json'
 NeoBundle 'sukima/xmledit'
@@ -199,6 +215,9 @@ call plug#begin('~/.vim/plugged')
 " Effective Tools {{{{
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
+Plug 'junegunn/goyo.vim'
+Plug 'junegunn/limelight.vim'
+Plug 'hrj/vim-DrawIt'
 " }}}}
  
 " Icon {{{{
@@ -776,4 +795,98 @@ let g:JavaComplete_UseFQN = 1
 let g:JavaComplete_ClosingBrace = 1
 let g:JavaComplete_JavaviDebug = 1
 let g:JavaComplete_ImportDefault = 0
+" }}}
+
+" rainbow {{{
+let g:rainbow_conf = {
+\   'guifgs': ['royalblue3', 'darkorange3', 'seagreen3', 'firebrick'],
+\   'ctermfgs': ['lightblue', 'lightyellow', 'lightcyan', 'lightmagenta'],
+\   'operators': '_,_',
+\   'parentheses': ['start=/(/ end=/)/ fold', 'start=/\[/ end=/\]/ fold', 'start=/{/ end=/}/ fold'],
+\   'separately': {
+\       '*': {},
+\       'tex': {
+\           'parentheses': ['start=/(/ end=/)/', 'start=/\[/ end=/\]/'],
+\       },
+\       'lisp': {
+\           'guifgs': ['royalblue3', 'darkorange3', 'seagreen3', 'firebrick', 'darkorchid3'],
+\       },
+\       'vim': {
+\           'parentheses': ['start=/(/ end=/)/', 'start=/\[/ end=/\]/', 'start=/{/ end=/}/ fold', 'start=/(/ end=/)/ containedin=vimFuncBody', 'start=/\[/ end=/\]/ containedin=vimFuncBody', 'start=/{/ end=/}/ fold containedin=vimFuncBody'],
+\       },
+\       'html': {
+\           'parentheses': ['start=/\v\<((area|base|br|col|embed|hr|img|input|keygen|link|menuitem|meta|param|source|track|wbr)[ >])@!\z([-_:a-zA-Z0-9]+)(\s+[-_:a-zA-Z0-9]+(\=("[^"]*"|'."'".'[^'."'".']*'."'".'|[^ '."'".'"><=`]*))?)*\>/ end=#</\z1># fold'],
+\       },
+\       'css': 0,
+\   }
+\}
+" }}}
+
+" Goyo & Limelight{{{
+function! s:goyo_enter()
+  silent !tmux set status off
+  silent !tmux list-panes -F '\#F' | grep -q Z || tmux resize-pane -Z
+  set noshowmode
+  set noshowcmd
+  set scrolloff=999
+  Limelight
+  " ...
+endfunction
+
+function! s:goyo_leave()
+  silent !tmux set status on
+  silent !tmux list-panes -F '\#F' | grep -q Z && tmux resize-pane -Z
+  set showmode
+  set showcmd
+  set scrolloff=5
+  Limelight!
+  " ...
+endfunction
+
+" Color name (:help cterm-colors) or ANSI code
+let g:limelight_conceal_ctermfg = 'gray'
+let g:limelight_conceal_ctermfg = 240
+
+" Color name (:help gui-colors) or RGB color
+let g:limelight_conceal_guifg = 'DarkGray'
+let g:limelight_conceal_guifg = '#777777'
+
+" Default: 0.5
+let g:limelight_default_coefficient = 0.7
+
+" Number of preceding/following paragraphs to include (default: 0)
+let g:limelight_paragraph_span = 1
+
+" Beginning/end of paragraph
+"   When there's no empty line between the paragraphs
+"   and each paragraph starts with indentation
+let g:limelight_bop = '^\s'
+let g:limelight_eop = '\ze\n^\s'
+
+" Highlighting priority (default: 10)
+"   Set it to -1 not to overrule hlsearch
+let g:limelight_priority = -1
+
+autocmd! User GoyoEnter nested call <SID>goyo_enter()
+autocmd! User GoyoLeave nested call <SID>goyo_leave() 
+" }}}
+
+" TableMode {{{
+function! s:isAtStartOfLine(mapping)
+  let text_before_cursor = getline('.')[0 : col('.')-1]
+  let mapping_pattern = '\V' . escape(a:mapping, '\')
+  let comment_pattern = '\V' . escape(substitute(&l:commentstring, '%s.*$', '', ''), '\')
+  return (text_before_cursor =~? '^' . ('\v(' . comment_pattern . '\v)?') . '\s*\v' . mapping_pattern . '\v$')
+endfunction
+
+inoreabbrev <expr> <bar><bar>
+          \ <SID>isAtStartOfLine('\|\|') ?
+          \ '<c-o>:TableModeEnable<cr><bar><space><bar><left><left>' : '<bar><bar>'
+inoreabbrev <expr> __
+          \ <SID>isAtStartOfLine('__') ?
+          \ '<c-o>:silent! TableModeDisable<cr>' : '__'
+" }}}
+
+" YankRing {{{
+let g:yankring_history_dir = '/Users/ningyu/.vim/yankdir'
 " }}}
