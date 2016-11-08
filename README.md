@@ -29,20 +29,20 @@
 ### 插件配置
 - 代码补全YouCompleteMe
 > 代码补全工具使用YouCompleteMe,可支持c/cpp/go/python/js/tex等，需要编译;如果要编译速度最快，推荐使用系统内置boost&clang来进行编译
- $brew install boost clang boost-python cmake git
- $./install.py --clang-completer  --gocode-completer --tern-completer --system-libclang --system-boost
+ $brew install boost clang boost-python cmake git 
+ $./install.py --clang-completer  --gocode-completer --tern-completer --system-libclang --system-boost 
 - 代码着色Color_Coded
 > C/CPP代码着色使用color_coded插件，使用clang进行语法分析，需要进行编译
- $cmake . -DDOWNLOAD_CLANG=0 && make && make install
+ $cmake . -DDOWNLOAD_CLANG=0 && make && make install 
 - 代码调试conque-gdb
 > 代码调试工具使用ConqueGdb进行调试，可在调试过程中查看源码，进行源码跳转，很方便
- $brew install gdb #(gdb 签名请google)
- $curl http://www.vim.org/scripts/download_script.php?src_id=24695 > ~/.conque_gdb.vmb & vim ~/.conque_gdb.vmb
- :so %
- :q
+ $brew install gdb #(gdb 签名请google) 
+ $curl http://www.vim.org/scripts/download_script.php?src_id=24695 > ~/.conque_gdb.vmb & vim ~/.conque_gdb.vmb 
+ :so % 
+ :q 
 - vim-go
-> golang使用vim-go进行编写十分方便,直接可在vim中下载依赖文件
- :GoInstallBinaries
+> golang使用vim-go进行编写十分方便,直接可在vim中下载依赖文件 
+ :GoInstallBinaries 
 - 字体补丁
 > 为了在vim中使用一些比较炫的符号，在此处使用了vim-devicons组件,需要对terminal所在机器打字体补丁,详情请见[Nerd Fonts](https://github.com/ryanoasis/nerd-fonts)
 
