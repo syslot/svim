@@ -19,12 +19,12 @@
 - 使用brew安装vim
 > $__brew install vim --with-python --with-lua__ # 安装vim,支持python&lua
 - 安装vim插件管理
-> [NeoBundle](https://github.com/Shougo/neobundle.vim)
+> [NeoBundle](https://github.com/Shougo/neobundle.vim) 
  $curl https://raw.githubusercontent.com/Shougo/neobundle.vim/master/bin/install.sh > install.sh & sh ./install.sh 
- :NeoBundleInstall(在vim cmd中)
- [Plug](https://github.com/junegunn/vim-plug)
+ :NeoBundleInstall(在vim cmd中) 
+ [Plug](https://github.com/junegunn/vim-plug) 
  $curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
-         https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+         https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim 
  :PlugInstall(在vim cmd中)
 ### 插件配置
 - 代码补全YouCompleteMe
