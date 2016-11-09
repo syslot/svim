@@ -20,7 +20,7 @@
 > $brew install vim --with-python --with-lua__ # 安装vim,支持python&lua
 - 安装vim插件管理
 > [NeoBundle](https://github.com/Shougo/neobundle.vim)   
-$curl https://raw.githubusercontent.com/Shougo/neobundle.vim/master/bin/install.sh > install.sh & sh ./install.sh   
+$curl https://raw.githubusercontent.com/Shougo/neobundle.vim/master/bin/install.sh > install.sh && sh ./install.sh   
  :NeoBundleInstall(在vim cmd中)   
 [Plug](https://github.com/junegunn/vim-plug)    
 $curl -fLo ~/.vim/autoload/plug.vim --create-dirs \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim    
@@ -39,7 +39,7 @@ $cmake . -DDOWNLOAD_CLANG=0 && make && make install
 - 代码调试conque-gdb
 > 代码调试工具使用ConqueGdb进行调试，可在调试过程中查看源码，进行源码跳转，很方便  
 $brew install gdb #(gdb 签名请google)   
-$curl http://www.vim.org/scripts/download_script.php?src_id=24695 > ~/.conque_gdb.vmb & vim ~/.conque_gdb.vmb   
+$curl http://www.vim.org/scripts/download_script.php?src_id=24695 > ~/.conque_gdb.vmb && vim ~/.conque_gdb.vmb   
 :so %    
 :q  
 
