@@ -39,6 +39,7 @@ set foldlevel=99
 nnoremap <leader><space> za
 set guifont=SauceCodePro\ NF:h14
 set background=dark
+"set background=light
 set cul
 set t_Co=256
 
@@ -53,15 +54,15 @@ augroup resCur
 augroup END
 
 " Ctrl + Direction
-nmap <C-H> <C-W>h
-nmap <C-J> <C-W>j
-nmap <C-K> <C-W>k
-nmap <C-L> <C-W>l
+nnoremap <C-H> <C-W>h
+nnoremap <C-J> <C-W>j
+nnoremap <C-K> <C-W>k
+nnoremap <C-L> <C-W>l
 
 " }}}
 
 
-" NeoBundle & Plug  -- The Plugin Manage Tool {{{
+" Plug & Plug  -- The Plugin Manage Tool {{{
 
 filetype off                   " required!
 if 0 | endif
@@ -69,149 +70,142 @@ if &compatible
   set nocompatible               " Be iMproved
 endif
 
-" Required:
-set runtimepath^=~/.vim/bundle/neobundle.vim/
-
-" Required:
-call neobundle#begin(expand('~/.vim/bundle/'))
-" Let NeoBundle manage NeoBundle
-" Required:
-NeoBundleFetch 'Shougo/neobundle.vim'
-
+call plug#begin('~/.vim/plugged')
 " Complete & Highlight {{{{
-NeoBundle 'Valloric/YouCompleteMe'
-NeoBundle 'rdnetto/YCM-Generator'
-NeoBundle 'robturtle/newycm_extra_conf.py'
+Plug 'Valloric/YouCompleteMe'
+Plug 'rdnetto/YCM-Generator'
+Plug 'robturtle/newycm_extra_conf.py'
+Plug 'Mizuchi/STL-Syntax'
+Plug 'scrooloose/syntastic'
+Plug 'arakashic/chromatica.nvim'
 
-NeoBundleLazy 'jeaye/color_coded', { 
-  \ 'build': {
-    \   'unix': 'cmake . -DDOWNLOAD_CLANG=0 && make && make install',
-  \ },
-  \ 'autoload': { 'filetypes' : ['c', 'cpp', 'objc', 'objcpp'] },
-  \ 'build_commands' : ['cmake', 'make']
-\}
-NeoBundle 'Mizuchi/STL-Syntax'
-NeoBundle 'scrooloose/syntastic'
-
-NeoBundle 'artur-shaik/vim-javacomplete2'
-NeoBundle 'ternjs/tern_for_vim'
-NeoBundle 'Valloric/MatchTagAlways'
-NeoBundle 'mattn/emmet-vim'
+Plug 'artur-shaik/vim-javacomplete2'
+Plug 'ternjs/tern_for_vim'
+Plug 'Valloric/MatchTagAlways'
+Plug 'mattn/emmet-vim'
 " }}}}
 
 " Nerdtree {{{{
-NeoBundle 'scrooloose/nerdtree'
-NeoBundle 'scrooloose/nerdcommenter'
-NeoBundle 'Xuyuanp/nerdtree-git-plugin'
-NeoBundle 'tiagofumo/vim-nerdtree-syntax-highlight'
+Plug 'scrooloose/nerdtree'
+Plug 'scrooloose/nerdcommenter'
+Plug 'Xuyuanp/nerdtree-git-plugin'
+Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
 " }}}}
 
 " Layout Tools {{{{
-NeoBundle 'majutsushi/tagbar'
-NeoBundle 'brookhong/cscope.vim'
-NeoBundle 'vim-scripts/SrcExpl'
-NeoBundle 'vim-scripts/TagHighlight'
-NeoBundle 'jlanzarotta/bufexplorer'
-NeoBundle 'rizzatti/dash.vim'
-NeoBundle 'Yggdroot/indentLine'
-NeoBundle 'mileszs/ack.vim'
-NeoBundle 'luochen1990/rainbow'
-NeoBundle 'vim-airline/vim-airline'
-NeoBundle 'vim-airline/vim-airline-themes'
+Plug 'majutsushi/tagbar'
+Plug 'brookhong/cscope.vim'
+Plug 'vim-scripts/SrcExpl'
+Plug 'vim-scripts/TagHighlight'
+Plug 'jlanzarotta/bufexplorer'
+Plug 'rizzatti/dash.vim'
+Plug 'Yggdroot/indentLine'
+Plug 'mileszs/ack.vim'
+Plug 'luochen1990/rainbow'
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
 " }}}}
 
 " VCS or Fold Manage {{{{
-NeoBundle 'airblade/vim-rooter'
-NeoBundle 'airblade/vim-gitgutter'
-NeoBundle 'sjl/gundo.vim'
-NeoBundle 'int3/vim-extradite'
-NeoBundle 'tpope/vim-fugitive'
-NeoBundle 'gregsexton/gitv'
+Plug 'airblade/vim-rooter'
+Plug 'airblade/vim-gitgutter'
+Plug 'sjl/gundo.vim'
+Plug 'int3/vim-extradite'
+Plug 'tpope/vim-fugitive'
+Plug 'gregsexton/gitv'
 " }}}}
 
 " Code Snipper{{{{
-NeoBundle 'vim-scripts/DoxygenToolkit.vim'
-NeoBundle 'Raimondi/delimitMate'
-NeoBundle 'honza/vim-snippets'
-NeoBundle 'SirVer/ultisnips'
+Plug 'vim-scripts/DoxygenToolkit.vim'
+Plug 'Raimondi/delimitMate'
+Plug 'honza/vim-snippets'
+Plug 'SirVer/ultisnips'
 " }}}}
 
 " Async tools {{{{
-NeoBundle 'tpope/vim-dispatch'
-NeoBundle 'thoughtbot/vim-rspec'
+Plug 'tpope/vim-dispatch'
+Plug 'thoughtbot/vim-rspec'
 " }}}}
 
 " Effective Tools {{{{
-NeoBundle 'Lokaltog/vim-easymotion'
-NeoBundle 'tpope/vim-surround'
-NeoBundle 'NLKNguyen/papercolor-theme'
+Plug 'Lokaltog/vim-easymotion'
+Plug 'tpope/vim-surround'
+Plug 'NLKNguyen/papercolor-theme'
 
-NeoBundle 'Shougo/unite.vim'
-NeoBundle 'rstacruz/vim-fastunite'
-NeoBundle 'Shougo/neomru.vim'
-NeoBundle 'Shougo/unite-outline'
-NeoBundle 'tsukkee/unite-tag'
-NeoBundle 'amitab/vim-unite-cscope'
+Plug 'Shougo/unite.vim'
+Plug 'rstacruz/vim-fastunite'
+Plug 'Shougo/neomru.vim'
+Plug 'Shougo/unite-outline'
+Plug 'tsukkee/unite-tag'
+Plug 'amitab/vim-unite-cscope'
 
-NeoBundle 'dkprice/vim-easygrep'
-NeoBundle 'chrisbra/vim-diff-enhanced'
-NeoBundle 'vim-scripts/DirDiff.vim'
-NeoBundle 'Shougo/vimproc.vim'
-NeoBundle 'joonty/vdebug'
-NeoBundle 'L9'
-NeoBundle 'mhinz/vim-startify'
+Plug 'dkprice/vim-easygrep'
+Plug 'chrisbra/vim-diff-enhanced'
+Plug 'vim-scripts/DirDiff.vim'
+Plug 'Shougo/vimproc.vim'
+Plug 'joonty/vdebug'
+Plug 'L9'
+Plug 'mhinz/vim-startify'
 
-NeoBundle 'vim-scripts/YankRing.vim'
+Plug 'vim-scripts/YankRing.vim'
 
-NeoBundle 'kshenoy/vim-signature'
+Plug 'kshenoy/vim-signature'
+
+Plug 'itchyny/vim-cursorword'
 " }}}}
 
 " Graph {{{{
-NeoBundle 'dhruvasagar/vim-table-mode'
-NeoBundle 'junegunn/vim-easy-align'
+Plug 'dhruvasagar/vim-table-mode'
+Plug 'junegunn/vim-easy-align'
 " }}}}
 
 " golang {{{{
-NeoBundle 'nsf/gocode', {'rtp': 'vim/'}
-NeoBundle 'fatih/vim-go'
-NeoBundle 'buoto/gotests-vim'
+Plug 'nsf/gocode', {'rtp': 'vim/'}
+Plug 'fatih/vim-go'
+Plug 'buoto/gotests-vim'
 " }}}}
 
 " Python {{{{
-NeoBundle 'klen/python-mode'
-NeoBundle 'hdima/python-syntax'
-NeoBundle 'suan/vim-instant-markdown'
-NeoBundle 'tmhedberg/SimpylFold'
-NeoBundle 'onlytiancai/flake8'
-NeoBundle 'nose-devs/nose'
+Plug 'klen/python-mode'
+Plug 'hdima/python-syntax'
+Plug 'suan/vim-instant-markdown'
+Plug 'tmhedberg/SimpylFold'
+Plug 'onlytiancai/flake8'
+Plug 'nose-devs/nose'
+" }}}}
+
+" SQL {{{{
+Plug 'vim-scripts/dbext.vim'
+
 " }}}}
  
 " Latex {{{{
-NeoBundle 'bjoernd/vim-ycm-tex'
-NeoBundle 'LaTeX-Box-Team/LaTeX-Box'
+Plug 'bjoernd/vim-ycm-tex'
+Plug 'LaTeX-Box-Team/LaTeX-Box'
 " }}}}
 
 " Prolog {{{{
-NeoBundle 'adimit/prolog.vim'
+Plug 'adimit/prolog.vim'
 " }}}}
 
 " R {{{{
-NeoBundle 'jcfaria/Vim-R-plugin'
+Plug 'jcfaria/Vim-R-plugin'
 " }}}}
 
 " Haskell {{{{
-NeoBundle 'neovimhaskell/haskell-vim'
-NeoBundle 'begriffs/haskell-vim-now'
+Plug 'neovimhaskell/haskell-vim'
+Plug 'begriffs/haskell-vim-now'
 " }}}}
 
-" Json & Html{{{{
-NeoBundle 'elzr/vim-json'
-NeoBundle 'sukima/xmledit'
+" Json & xml & toml{{{{
+Plug 'elzr/vim-json'
+Plug 'sukima/xmledit'
+Plug 'cespare/vim-toml'
+
+map <F4> <Esc>:%!python -m json.tool<CR>
+
 " }}}}
 
-call neobundle#end()
-
-call plug#begin('~/.vim/plugged')
 " Effective Tools {{{{
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
@@ -412,7 +406,10 @@ autocmd FileType nerdtree setlocal nolist
 set ambiwidth=double
 "endif
 
-nmap <F1>   :NERDTreeToggle     <CR>
+" For vimr
+" endif
+
+nnoremap <F1>   :NERDTreeToggle     <CR>
  
 " }}}
 
@@ -448,7 +445,7 @@ nmap <F1>   :NERDTreeToggle     <CR>
   \ 'ctagsargs' : '-sort -silent'
 \ }
 
-nmap <F2> :TagbarToggle<CR>
+nnoremap <F2> :TagbarToggle<CR>
 
 " }}}
 
@@ -591,17 +588,21 @@ au FileType go nmap <Leader>dt <Plug>(go-def-tab)
 
 
 " Cpp Highlight Advanced {{{
+let g:chromatica#libclang_path='/usr/local/opt/llvm/lib'
 
 " color_coded
 let g:colorjcoded_enabled=1
-let g:color_coded_filetypes = ['c', 'cpp', 'objc']
-" Disable color_coded in diff mode
-if &diff
-      let g:color_coded_enabled = 0
-endif
-if has('nvim')
-      let g:color_coded_enabled = 0
-endif
+let g:chromatica#enable_at_startup=1
+
+
+"let g:color_coded_filetypes = ['c', 'cpp', 'objc']
+"" Disable color_coded in diff mode
+"if &diff
+"      let g:color_coded_enabled = 0
+"endif
+"if has('nvim')
+"      let g:color_coded_enabled = 0
+"endif
 
 " }}}
 
