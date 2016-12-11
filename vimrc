@@ -43,7 +43,7 @@ set background=dark
 set cul
 set t_Co=256
 
-let MultiFunc=0
+let MultiFunc=1
 
 if MultiFunc==1
     colorscheme PaperColor
@@ -71,33 +71,26 @@ nnoremap <C-L> <C-W>l
 
 
 " Plug & Plug  -- The Plugin Manage Tool {{{
-
-filetype off                   " required!
-if 0 | endif
-if &compatible
-  set nocompatible               " Be iMproved
-endif
-
 call plug#begin('~/.vim/plugged')
 " Complete & Highlight {{{{
-autocmd FileType c,cpp,go,python,java,js,tex,rust,ruby,vim Plug 'Valloric/YouCompleteMe'
-Plug 'rdnetto/YCM-Generator'
+Plug 'Valloric/YouCompleteMe',{'for':['c','cpp','go','python','java','js','tex','rust','ruby','vim']}
+Plug 'rdnetto/YCM-Generator', {'for':['c','cpp','go','python','java','js','tex','rust','ruby','vim']}
 Plug 'robturtle/newycm_extra_conf.py'
-autocmd FileType cpp Plug 'Mizuchi/STL-Syntax'
-autocmd FileType c,cpp,go,python,java,js,tex,rust,ruby Plug 'scrooloose/syntastic'
+Plug 'Mizuchi/STL-Syntax',{'for':['cpp']}
+Plug 'scrooloose/syntastic',{'for':['c','cpp','go','python','java','js','tex','rust','ruby','vim']}
 
-autocmd FileType c,cpp Plug 'arakashic/chromatica.nvim'
-autocmd FileType java Plug 'artur-shaik/vim-javacomplete2'
-autocmd FileType js Plug 'ternjs/tern_for_vim'
-autocmd Filetype html,xml Plug 'Valloric/MatchTagAlways'
-autocmd FileType js Plug 'mattn/emmet-vim'
+Plug 'arakashic/chromatica.nvim', {'for':['c','cpp']}
+Plug 'artur-shaik/vim-javacomplete2', {'for':'java'} 
+Plug 'ternjs/tern_for_vim', {'for':'js'} 
+Plug 'Valloric/MatchTagAlways' , {'for':['xml','html','css','vim']}
+autocmd FileType js Plug 'mattn/emmet-vim' , {'for':['xml','html','css','vim']}
 " }}}}
 
 " Nerdtree {{{{
-Plug 'scrooloose/nerdtree'
-Plug 'scrooloose/nerdcommenter'
-Plug 'Xuyuanp/nerdtree-git-plugin'
-Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
+Plug 'scrooloose/nerdtree', {'on':'NERDTreeToggle'}
+Plug 'scrooloose/nerdcommenter', {'on':'NERDTreeToggle'}
+Plug 'Xuyuanp/nerdtree-git-plugin', {'on':'NERDTreeToggle'}
+Plug 'tiagofumo/vim-nerdtree-syntax-highlight', {'on':'NERDTreeToggle'}
 " }}}}
 
 " Layout Tools {{{{
@@ -127,8 +120,8 @@ Plug 'gregsexton/gitv'
 " Code Snipper{{{{
 Plug 'vim-scripts/DoxygenToolkit.vim'
 Plug 'Raimondi/delimitMate'
-autocmd FileType c,cpp,go,python,java,js,tex,rust,ruby Plug 'honza/vim-snippets'
-autocmd FileType c,cpp,go,python,java,js,tex,rust,ruby Plug 'SirVer/ultisnips'
+Plug 'honza/vim-snippets',{'for':['c','cpp','go','python','java','js','tex','rust','ruby']}
+Plug 'SirVer/ultisnips' ,{'for':['c','cpp','go','python','java','js','tex','rust','ruby']}
 " }}}}
 
 " Async tools {{{{
@@ -177,9 +170,9 @@ Plug 'buoto/gotests-vim'
 " }}}}
 
 " Python {{{{
-autocmd Filetype python Plug 'klen/python-mode'
-autocmd Filetype python Plug 'hdima/python-syntax'
-Plug 'suan/vim-instant-markdown'
+Plug 'klen/python-mode', {'for':'python'}
+Plug 'hdima/python-syntax', {'for':'python'}
+Plug 'suan/vim-instant-markdown' ,{'for':'markdown'}
 Plug 'tmhedberg/SimpylFold'
 Plug 'onlytiancai/flake8'
 Plug 'nose-devs/nose'
@@ -230,8 +223,6 @@ Plug 'ryanoasis/vim-devicons'
 " }}}}
 call plug#end()
 
-filetype plugin indent on
-syntax on
 " }}} End Plug
 
 
