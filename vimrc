@@ -43,15 +43,18 @@ set background=dark
 set cul
 set t_Co=256
 
-colorscheme PaperColor
+"colorscheme PaperColor
 "colorscheme solarized
-"colorscheme molokai 
+colorscheme molokai 
 
 " cursor lable
 augroup resCur
   autocmd!
   autocmd BufReadPost * call setpos(".", getpos("'\""))
 augroup END
+
+" space fold text
+ nnoremap <space> @=((foldclosed(line(''.'')) < 0) ? 'zc' : 'zo')<CR>
 
 " Ctrl + Direction
 nnoremap <C-H> <C-W>h
@@ -72,7 +75,7 @@ endif
 
 call plug#begin('~/.vim/plugged')
 " Complete & Highlight {{{{
-Plug 'Valloric/YouCompleteMe'
+autocmd FileType c,cpp,go,python,java,js,tex,rust,ruby,vim Plug 'Valloric/YouCompleteMe'
 Plug 'rdnetto/YCM-Generator'
 Plug 'robturtle/newycm_extra_conf.py'
 autocmd FileType cpp Plug 'Mizuchi/STL-Syntax'
@@ -143,13 +146,12 @@ Plug 'dkprice/vim-easygrep'
 Plug 'chrisbra/vim-diff-enhanced'
 Plug 'vim-scripts/DirDiff.vim'
 Plug 'Shougo/vimproc.vim'
-Plug 'joonty/vdebug'
 Plug 'L9'
 Plug 'mhinz/vim-startify'
 
-Plug 'vim-scripts/YankRing.vim'
+"Plug 'vim-scripts/YankRing.vim'
 
-Plug 'kshenoy/vim-signature'
+"Plug 'kshenoy/vim-signature'
 
 Plug 'itchyny/vim-cursorword'
 " }}}}
@@ -622,7 +624,7 @@ function LoadCscope()
 endfunction
 
 " Load Cscope after vim config init already
-autocmd VimEnter call LoadCscope()
+autocmd Filetype c,cpp autocmd VimEnter call LoadCscope()
 
 " s: Find this C symbol
 nnoremap  <leader>fs :call CscopeFind('s', expand('<cword>'))<CR>
