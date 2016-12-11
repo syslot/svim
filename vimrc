@@ -75,14 +75,14 @@ call plug#begin('~/.vim/plugged')
 Plug 'Valloric/YouCompleteMe'
 Plug 'rdnetto/YCM-Generator'
 Plug 'robturtle/newycm_extra_conf.py'
-Plug 'Mizuchi/STL-Syntax'
-Plug 'scrooloose/syntastic'
-Plug 'arakashic/chromatica.nvim'
+autocmd FileType cpp Plug 'Mizuchi/STL-Syntax'
+autocmd FileType c,cpp,go,python,java,js,tex,rust,ruby Plug 'scrooloose/syntastic'
 
-Plug 'artur-shaik/vim-javacomplete2'
-Plug 'ternjs/tern_for_vim'
-Plug 'Valloric/MatchTagAlways'
-Plug 'mattn/emmet-vim'
+autocmd FileType c,cpp Plug 'arakashic/chromatica.nvim'
+autocmd FileType java Plug 'artur-shaik/vim-javacomplete2'
+autocmd FileType js Plug 'ternjs/tern_for_vim'
+autocmd Filetype html,xml Plug 'Valloric/MatchTagAlways'
+autocmd FileType js Plug 'mattn/emmet-vim'
 " }}}}
 
 " Nerdtree {{{{
@@ -118,8 +118,8 @@ Plug 'gregsexton/gitv'
 " Code Snipper{{{{
 Plug 'vim-scripts/DoxygenToolkit.vim'
 Plug 'Raimondi/delimitMate'
-Plug 'honza/vim-snippets'
-Plug 'SirVer/ultisnips'
+autocmd FileType c,cpp,go,python,java,js,tex,rust,ruby Plug 'honza/vim-snippets'
+autocmd FileType c,cpp,go,python,java,js,tex,rust,ruby Plug 'SirVer/ultisnips'
 " }}}}
 
 " Async tools {{{{
@@ -166,8 +166,8 @@ Plug 'buoto/gotests-vim'
 " }}}}
 
 " Python {{{{
-Plug 'klen/python-mode'
-Plug 'hdima/python-syntax'
+autocmd Filetype python Plug 'klen/python-mode'
+autocmd Filetype python Plug 'hdima/python-syntax'
 Plug 'suan/vim-instant-markdown'
 Plug 'tmhedberg/SimpylFold'
 Plug 'onlytiancai/flake8'
