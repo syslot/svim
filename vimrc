@@ -43,9 +43,14 @@ set background=dark
 set cul
 set t_Co=256
 
-"colorscheme PaperColor
+let MultiFunc=0
+
+if MultiFunc==1
+    colorscheme PaperColor
+else
 "colorscheme solarized
-colorscheme molokai 
+    colorscheme molokai 
+endif
 
 " cursor lable
 augroup resCur
@@ -110,7 +115,9 @@ Plug 'vim-airline/vim-airline-themes'
 
 " VCS or Fold Manage {{{{
 Plug 'airblade/vim-rooter'
-"Plug 'airblade/vim-gitgutter'
+if MultiFunc==1
+    Plug 'airblade/vim-gitgutter'
+endif
 Plug 'sjl/gundo.vim'
 Plug 'int3/vim-extradite'
 Plug 'tpope/vim-fugitive'
@@ -135,22 +142,25 @@ Plug 'tpope/vim-surround'
 "Plug 'NLKNguyen/papercolor-theme'
 
 Plug 'Shougo/unite.vim'
-"Plug 'rstacruz/vim-fastunite'
+if MultiFunc==1
+    Plug 'rstacruz/vim-fastunite'
+endif
 Plug 'Shougo/neomru.vim'
 Plug 'Shougo/unite-outline'
 Plug 'tsukkee/unite-tag'
 Plug 'amitab/vim-unite-cscope'
 
-"Plug 'dkprice/vim-easygrep'
+if MultiFunc==1
+    Plug 'mhinz/vim-startify'
+    Plug 'vim-scripts/YankRing.vim'
+    Plug 'kshenoy/vim-signature'
+    Plug 'dkprice/vim-easygrep'
+endif
+
 Plug 'chrisbra/vim-diff-enhanced'
 Plug 'vim-scripts/DirDiff.vim'
 Plug 'Shougo/vimproc.vim'
 Plug 'L9'
-"Plug 'mhinz/vim-startify'
-
-"Plug 'vim-scripts/YankRing.vim'
-
-"Plug 'kshenoy/vim-signature'
 
 Plug 'itchyny/vim-cursorword'
 " }}}}

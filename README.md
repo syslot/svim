@@ -46,6 +46,10 @@ $curl http://www.vim.org/scripts/download_script.php?src_id=24695 > ~/.conque_gd
 
 - tex 自动补全
 
+### 快速模式
+- 优化打开速度,多功能模式降至400ms,精简模式降至200ms;
+- 配置**MultiFunc**为0即可,实现快速打开;
+
 ### showtime
 ![Edit](pic/editor.png)
 ![ConqueGdb](pic/gdb.png)
