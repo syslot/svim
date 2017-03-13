@@ -19,7 +19,6 @@
 set runtimepath+=$GOROOT/misc/vim
 set rtp+=~/.fzf
 set rtp+=~/.vim/plugged/papercolor-theme
-set rtp+=~/.vim/plugin
 set fencs=utf-8,GB18030,ucs-bom,default,latin1,ucs-bom
 syntax enable
 syntax on
@@ -94,20 +93,22 @@ nnoremap <C-L> <C-W>l
 " Plug & Plug  -- The Plugin Manage Tool {{{
 call plug#begin('~/.vim/plugged')
 " Complete & Highlight {{{{
-Plug 'Valloric/YouCompleteMe',{'for':['c','cpp','go','python','java','js','tex','rust','ruby','vim']}
-Plug 'rdnetto/YCM-Generator', {'branch': 'stable','for':['c','cpp','go','python','java','js','tex','rust','ruby','vim']}
-Plug 'robturtle/newycm_extra_conf.py'
+if MultiFunc == 1
+    Plug 'Valloric/YouCompleteMe',{'for':['c','cpp','go','python','java','js','tex','rust','ruby','vim']}
+    Plug 'rdnetto/YCM-Generator', {'branch': 'stable','for':['c','cpp','go','python','java','js','tex','rust','ruby','vim']}
+    Plug 'robturtle/newycm_extra_conf.py'
+endif
 Plug 'Mizuchi/STL-Syntax',{'for':['cpp']}
-"Plug 'scrooloose/syntastic',{'for':['c','cpp','go','python','java','js','tex','rust','ruby','vim']}
-Plug 'w0rp/ale',{'for':['c','cpp','go','python','js','tex','rust','ruby','vim']}
 
-
+if MultiFunc ==1
+    Plug 'w0rp/ale',{'for':['c','cpp','go']}
+endif
 
 Plug 'arakashic/chromatica.nvim', {'for':['c','cpp']}
 Plug 'artur-shaik/vim-javacomplete2', {'for':'java'} 
 Plug 'NLKNguyen/vim-maven-syntax', {'for':'xml.maven'}
 Plug 'ternjs/tern_for_vim', {'for':'js'} 
-Plug 'Valloric/MatchTagAlways' , {'for':['xml','html','css','vim']}
+Plug 'Valloric/MatchTagAlways' , {'for':['xml','html','css']}
 Plug 'mattn/emmet-vim' , {'for':['xml','html','css','vim']}
 " }}}}
 
@@ -167,16 +168,11 @@ Plug 'tpope/vim-speeddating'
 Plug 'Shougo/unite.vim'
 Plug 'Shougo/denite.nvim'
 Plug 'devjoe/vim-codequery'
-if MultiFunc==1
-    Plug 'rstacruz/vim-fastunite'
-endif
 Plug 'Shougo/neomru.vim'
 
 if MultiFunc==1
     Plug 'mhinz/vim-startify'
-    Plug 'vim-scripts/YankRing.vim'
     Plug 'kshenoy/vim-signature'
-    Plug 'dkprice/vim-easygrep'
 endif
 
 Plug 'chrisbra/vim-diff-enhanced'
@@ -262,7 +258,6 @@ call plug#end()
 
 " }}} End Plug
 set rtp+=/Users/syslot/.fzf
-set rtp+=/Users/syslot/.vim/eclim
 " Code Complate {{{
 
 " Omni Engine Complate 
@@ -502,7 +497,6 @@ let g:airline_theme="onedark"
 let g:airline_powerline_fonts = 1
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#buffer_nr_show = 1
-let g:airelin#extensions#eclim#enable =1
 let g:airline#extensions#whitespace#enabled = 0
 let g:airline#extensions#whitespace#symbol = '!'
 let g:airline_symbols = {}
@@ -760,7 +754,8 @@ hi pythonBuiltinObj      ctermfg=71  guifg=#5faf5f
 hi pythonBuiltinFunc     ctermfg=169 guifg=#d75faf cterm=bold gui=bold
 
 hi pythonException       ctermfg=207 guifg=#CC3366 cterm=bold gui=bold
-" }
+let g:python_host_args='~/.pyenv/shims/python2'
+let g:python_host_args='~/.pyenv/shims/python3'
 
 " }}} 
 
@@ -783,7 +778,6 @@ call unite#custom#source('file_rec/async','sorters','sorter_rank', )
 " replacing unite with ctrl-p
 let g:unite_data_directory='~/.vim/.cache/unite'
 let g:unite_enable_start_insert=1
-let g:unite_source_history_yank_enable=1
 let g:unite_prompt='» '
 let g:unite_split_rule = 'botright'
 if executable('ag')
@@ -854,8 +848,8 @@ let g:fzf_tags_command = 'ctags -R'
 " [Commands] --expect expression for directly executing the command
 let g:fzf_commands_expect = 'alt-enter,ctrl-x'
 
-autocmd VimEnter * command! Colors
-  \ call fzf#vim#colors({'left': '15%', 'options': '--reverse --margin 30%,0'})
+"autocmd VimEnter * command! Colors
+"  \ call fzf#vim#colors({'left': '15%', 'options': '--reverse --margin 30%,0'})
 
 " }}}
 
@@ -978,27 +972,8 @@ inoreabbrev <expr> __
           \ '<c-o>:silent! TableModeDisable<cr>' : '__'
 " }}}
 
-" YankRing {{{
-if MultiFunc==1
-    let g:yankring_history_dir = '$HOME/.vim/yankdir'
-endif
-" }}}
-
 " CodeQuery {{{
 let g:codequery_enable_auto_clean_languages=['c','cpp','java','python','go','ruby','javascript']
-" }}}
-" 
-" 
-" Eclim {{{
-let g:EclimCompletionMethod = 'omnifunc'
-function! IsProjectFile()
-    let projectName = eclim#project#util#GetCurrentProjectName()
-    if projectName == ''
-         setlocal omnifunc=javacomplete#Complete
-    endif
-endfunction
-autocmd FileType java call IsProjectFile()
-
 " }}}
 
 let g:ascii = [
