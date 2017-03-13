@@ -18,6 +18,8 @@
 " Vim Ui config {{{ 
 set runtimepath+=$GOROOT/misc/vim
 set rtp+=~/.fzf
+set rtp+=~/.vim/plugged/papercolor-theme
+set rtp+=~/.vim/plugin
 set fencs=utf-8,GB18030,ucs-bom,default,latin1,ucs-bom
 syntax enable
 syntax on
@@ -37,16 +39,35 @@ set cino=g0,:0
 set fdm=indent
 set foldlevel=99
 nnoremap <leader><space> za
-set guifont=SauceCodePro\ NF:h14
+set guifont=FantasqueSansMonoNerdFontComplete---Regular:h15
 set background=dark
 "set background=light
 set cul
 set t_Co=256
 
+
+"Use 24-bit (true-color) mode in Vim/Neovim when outside tmux.
+"If you're using tmux version 2.2 or later, you can remove the outermost $TMUX check and use tmux's 24-bit color support
+"(see < http://sunaku.github.io/tmux-24bit-color.html#usage > for more information.)
+if (empty($TMUX))
+  if (has("nvim"))
+    "For Neovim 0.1.3 and 0.1.4 < https://github.com/neovim/neovim/pull/2198 >
+    let $NVIM_TUI_ENABLE_TRUE_COLOR=1
+  endif
+  "For Neovim > 0.1.5 and Vim > patch 7.4.1799 < https://github.com/vim/vim/commit/61be73bb0f965a895bfb064ea3e55476ac175162 >
+  "Based on Vim patch 7.4.1770 (`guicolors` option) < https://github.com/vim/vim/commit/8a633e3427b47286869aa4b96f2bfc1fe65b25cd >
+  " < https://github.com/neovim/neovim/wiki/Following-HEAD#20160511 >
+  if (has("termguicolors"))
+    set termguicolors
+  endif
+endif
+
+
 let MultiFunc=1
 
 if MultiFunc==1
-    colorscheme PaperColor
+    "colorscheme PaperColor
+    colorscheme onedark
 else
 "colorscheme solarized
     colorscheme molokai 
@@ -74,16 +95,20 @@ nnoremap <C-L> <C-W>l
 call plug#begin('~/.vim/plugged')
 " Complete & Highlight {{{{
 Plug 'Valloric/YouCompleteMe',{'for':['c','cpp','go','python','java','js','tex','rust','ruby','vim']}
-Plug 'rdnetto/YCM-Generator', {'for':['c','cpp','go','python','java','js','tex','rust','ruby','vim']}
+Plug 'rdnetto/YCM-Generator', {'branch': 'stable','for':['c','cpp','go','python','java','js','tex','rust','ruby','vim']}
 Plug 'robturtle/newycm_extra_conf.py'
 Plug 'Mizuchi/STL-Syntax',{'for':['cpp']}
-Plug 'scrooloose/syntastic',{'for':['c','cpp','go','python','java','js','tex','rust','ruby','vim']}
+"Plug 'scrooloose/syntastic',{'for':['c','cpp','go','python','java','js','tex','rust','ruby','vim']}
+Plug 'w0rp/ale',{'for':['c','cpp','go','python','js','tex','rust','ruby','vim']}
+
+
 
 Plug 'arakashic/chromatica.nvim', {'for':['c','cpp']}
 Plug 'artur-shaik/vim-javacomplete2', {'for':'java'} 
+Plug 'NLKNguyen/vim-maven-syntax', {'for':'xml.maven'}
 Plug 'ternjs/tern_for_vim', {'for':'js'} 
 Plug 'Valloric/MatchTagAlways' , {'for':['xml','html','css','vim']}
-autocmd FileType js Plug 'mattn/emmet-vim' , {'for':['xml','html','css','vim']}
+Plug 'mattn/emmet-vim' , {'for':['xml','html','css','vim']}
 " }}}}
 
 " Nerdtree {{{{
@@ -95,7 +120,7 @@ Plug 'tiagofumo/vim-nerdtree-syntax-highlight', {'on':'NERDTreeToggle'}
 
 " Layout Tools {{{{
 Plug 'majutsushi/tagbar'
-Plug 'brookhong/cscope.vim'
+"Plug 'brookhong/cscope.vim'
 Plug 'vim-scripts/SrcExpl'
 Plug 'jlanzarotta/bufexplorer'
 Plug 'rizzatti/dash.vim'
@@ -107,13 +132,14 @@ Plug 'vim-airline/vim-airline-themes'
 " }}}}
 
 " VCS or Fold Manage {{{{
-Plug 'airblade/vim-rooter'
+" Plug 'airblade/vim-rooter'
 if MultiFunc==1
     Plug 'airblade/vim-gitgutter'
 endif
 Plug 'sjl/gundo.vim'
 Plug 'int3/vim-extradite'
 Plug 'tpope/vim-fugitive'
+Plug 'lambdalisue/gina.vim', {'on': ['Gina']}
 Plug 'gregsexton/gitv'
 " }}}}
 
@@ -132,16 +158,19 @@ Plug 'thoughtbot/vim-rspec'
 " Effective Tools {{{{
 Plug 'Lokaltog/vim-easymotion'
 Plug 'tpope/vim-surround'
-"Plug 'NLKNguyen/papercolor-theme'
+Plug 'scrooloose/nerdcommenter'
+Plug 'NLKNguyen/papercolor-theme'
+Plug 'morhetz/gruvbox'
 
+Plug 'jceb/vim-orgmode'
+Plug 'tpope/vim-speeddating'
 Plug 'Shougo/unite.vim'
+Plug 'Shougo/denite.nvim'
+Plug 'devjoe/vim-codequery'
 if MultiFunc==1
     Plug 'rstacruz/vim-fastunite'
 endif
 Plug 'Shougo/neomru.vim'
-Plug 'Shougo/unite-outline'
-Plug 'tsukkee/unite-tag'
-Plug 'amitab/vim-unite-cscope'
 
 if MultiFunc==1
     Plug 'mhinz/vim-startify'
@@ -153,6 +182,7 @@ endif
 Plug 'chrisbra/vim-diff-enhanced'
 Plug 'vim-scripts/DirDiff.vim'
 Plug 'Shougo/vimproc.vim'
+Plug 'idanarye/vim-vebugger'
 Plug 'L9'
 
 Plug 'itchyny/vim-cursorword'
@@ -169,6 +199,10 @@ Plug 'fatih/vim-go'
 Plug 'buoto/gotests-vim'
 " }}}}
 
+" Scala {{{
+Plug 'derekwyatt/vim-scala', {'for': 'scala'}
+" }}}
+
 " Python {{{{
 Plug 'klen/python-mode', {'for':'python'}
 Plug 'hdima/python-syntax', {'for':'python'}
@@ -180,7 +214,6 @@ Plug 'nose-devs/nose'
 
 " SQL {{{{
 Plug 'vim-scripts/dbext.vim'
-
 " }}}}
  
 " Latex {{{{
@@ -201,10 +234,14 @@ Plug 'neovimhaskell/haskell-vim'
 Plug 'begriffs/haskell-vim-now'
 " }}}}
 
-" Json & xml & toml{{{{
+" Json & xml & toml & yaml{{{{
 Plug 'elzr/vim-json'
 Plug 'sukima/xmledit'
 Plug 'cespare/vim-toml'
+
+Plug 'pearofducks/ansible-vim'
+Plug 'chase/vim-ansible-yaml'
+
 
 map <F4> <Esc>:%!python -m json.tool<CR>
 
@@ -224,8 +261,8 @@ Plug 'ryanoasis/vim-devicons'
 call plug#end()
 
 " }}} End Plug
-
-
+set rtp+=/Users/syslot/.fzf
+set rtp+=/Users/syslot/.vim/eclim
 " Code Complate {{{
 
 " Omni Engine Complate 
@@ -241,6 +278,7 @@ autocmd FileType css set omnifunc=csscomplete#CompleteCSS
 autocmd FileType xml set omnifunc=xmlcomplete#CompleteTags
 autocmd FileType java set omnifunc=javacomplete#Complete
 autocmd FileType c set omnifunc=ccomplete#Complete
+"autocmd FileType haskell set omnifunc=necoghc#omnifunc
 
 "auto set omnifunc by filetype
 if has("autocmd") && exists("+omnifunc")
@@ -276,6 +314,7 @@ inoremap <expr> <PageDown> pumvisible() ? "\<PageDown>\<C-p>\<C-n>" : "\<PageDow
 inoremap <expr> <PageUp>   pumvisible() ? "\<PageUp>\<C-p>\<C-n>" : "\<PageUp>"
 
 let g:ycm_key_list_select_completion = ['<Down>']
+let g:ycm_python_binary_path='/Users/syslot/.pyenv/shims/python'
 let g:ycm_global_ycm_extra_conf = '~/.ycm_extra_conf.py'
 let g:ycm_key_list_previous_completion = ['<Up>']
 let g:ycm_confirm_extra_conf=0 
@@ -336,24 +375,29 @@ syntax on
 
 " Syncta Check {{{
 
-" for cpp
-let g:syntastic_cpp_include_dirs = ['/usr/include/']
-let g:syntastic_cpp_remove_include_errors = 1
-let g:syntastic_cpp_check_header = 1
-let g:syntastic_cpp_compiler = 'g++'
-let g:syntastic_cpp_compiler_options = '-std=c++11 -stdlib=libstdc++'
-" set error or warning signs
-let g:syntastic_error_symbol = '✗'
-let g:syntastic_warning_symbol = '⚠'
-" whether to show balloons
-let g:syntastic_enable_balloons = 1
+"" for cpp
+"let g:syntastic_cpp_include_dirs = ['/usr/include/']
+"let g:syntastic_cpp_remove_include_errors = 1
+"let g:syntastic_cpp_check_header = 1
+"let g:syntastic_cpp_compiler = 'g++'
+"let g:syntastic_cpp_compiler_options = '-std=c++11 -stdlib=libstdc++'
+"" set error or warning signs
+"let g:syntastic_error_symbol = '✗'
+"let g:syntastic_warning_symbol = '⚠'
+"" whether to show balloons
+"let g:syntastic_enable_balloons = 1
+"
+"" for golang 
+"let g:syntastic_go_checkers = ['golint', 'vet', 'errcheck', 'gometalinter']
+"let g:syntastic_mode_map = { 'mode': 'active', 'passive_filetypes': ['go'] }
+"let g:syntastic_go_gometalinter_args=['--fast']
+"let g:go_list_type = "quickfix"
+"
+"" }}}
 
-" for golang 
-let g:syntastic_go_checkers = ['golint', 'vet', 'errcheck', 'gometalinter']
-let g:syntastic_mode_map = { 'mode': 'active', 'passive_filetypes': ['go'] }
-let g:syntastic_go_gometalinter_args=['--fast']
-let g:go_list_type = "quickfix"
-
+" ale {{{
+let g:ale_statusline_format = ['⨉ %d', '⚠ %d', '⬥ ok'] 
+ 
 " }}}
 
 
@@ -443,7 +487,7 @@ nnoremap <F1>   :NERDTreeToggle     <CR>
     \ 'ctype' : 't',
     \ 'ntype' : 'n'
   \ },
-  \ 'ctagsbin'  : '/Users/ningyu/Source/code/go/bin/gotags',
+  \ 'ctagsbin'  : 'gotags',
   \ 'ctagsargs' : '-sort -silent'
 \ }
 
@@ -454,10 +498,11 @@ nnoremap <F2> :TagbarToggle<CR>
 
 " Airline {{{
  
-let g:airline_theme="gruvbox"
+let g:airline_theme="onedark"
 let g:airline_powerline_fonts = 1
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#buffer_nr_show = 1
+let g:airelin#extensions#eclim#enable =1
 let g:airline#extensions#whitespace#enabled = 0
 let g:airline#extensions#whitespace#symbol = '!'
 let g:airline_symbols = {}
@@ -595,6 +640,9 @@ let g:chromatica#libclang_path='/usr/local/opt/llvm/lib'
 " color_coded
 let g:colorjcoded_enabled=1
 let g:chromatica#enable_at_startup=1
+"let g:chromatica#highlight_feature_level=1
+let g:chromatica#responsive_mode=1
+let g:chrometica#delay_ms = 80
 
 
 "let g:color_coded_filetypes = ['c', 'cpp', 'objc']
@@ -613,37 +661,37 @@ let g:chromatica#enable_at_startup=1
 
 " change time workspace by folder
 " let g:rooter_disable_map = 1
-let g:rooter_patterns = ['.git/']
-let g:rooter_silent_chdir = 1
+"let g:rooter_patterns = ['.git/']
+"let g:rooter_silent_chdir = 1
 
-" For Cscope
-function LoadCscope()
-    if filereadable("cscope.out")
-        cs add 'cscope.out'
-    endif
-endfunction
+" For Cscope #### Instead by vim-codequery
+"function LoadCscope()
+"    if filereadable("cscope.out")
+"        cs add 'cscope.out'
+"    endif
+"endfunction
 
-" Load Cscope after vim config init already
-autocmd Filetype c,cpp autocmd VimEnter call LoadCscope()
+"" Load Cscope after vim config init already
+"autocmd Filetype c,cpp autocmd VimEnter call LoadCscope()
 
-" s: Find this C symbol
-nnoremap  <leader>fs :call CscopeFind('s', expand('<cword>'))<CR>
-" g: Find this definition
-nnoremap  <leader>fg :call CscopeFind('g', expand('<cword>'))<CR>
-" d: Find functions called by this function
-nnoremap  <leader>fd :call CscopeFind('d', expand('<cword>'))<CR>
-" c: Find functions calling this function
-nnoremap  <leader>fc :call CscopeFind('c', expand('<cword>'))<CR>
-" t: Find this text string
-nnoremap  <leader>ft :call CscopeFind('t', expand('<cword>'))<CR>
-" e: Find this egrep pattern
-nnoremap  <leader>fe :call CscopeFind('e', expand('<cword>'))<CR>
-" f: Find this file
-nnoremap  <leader>ff :call CscopeFind('f', expand('<cword>'))<CR>
-" i: Find files #including this file
-nnoremap  <leader>fi :call CscopeFind('i', expand('<cword>'))<CR>
+"" s: Find this C symbol
+"nnoremap  <leader>fs :call CscopeFind('s', expand('<cword>'))<CR>
+"" g: Find this definition
+"nnoremap  <leader>fg :call CscopeFind('g', expand('<cword>'))<CR>
+"" d: Find functions called by this function
+"nnoremap  <leader>fd :call CscopeFind('d', expand('<cword>'))<CR>
+"" c: Find functions calling this function
+"nnoremap  <leader>fc :call CscopeFind('c', expand('<cword>'))<CR>
+"" t: Find this text string
+"nnoremap  <leader>ft :call CscopeFind('t', expand('<cword>'))<CR>
+"" e: Find this egrep pattern
+"nnoremap  <leader>fe :call CscopeFind('e', expand('<cword>'))<CR>
+"" f: Find this file
+"nnoremap  <leader>ff :call CscopeFind('f', expand('<cword>'))<CR>
+"" i: Find files #including this file
+"nnoremap  <leader>fi :call CscopeFind('i', expand('<cword>'))<CR>
 
-" }}}
+"" }}}
  
 
 " Markdown {{{
@@ -665,8 +713,17 @@ let g:ycm_semantic_triggers = {
 
 " }}}
 
+" asible-yaml {{{
+let g:ansible_extra_syntaxes = "zsh.vim ruby.vim"
+let g:ansible_attribute_highlight = "ob"
+let g:ansible_name_highlight = 'd'
+let g:ansible_extra_keywords_highlight = 1
+
+" }}}
+
 
 " Python syntax highlight & functional fold {{{
+let g:PaperColor_Python_Highlight_Builtins = 1
 
 let python_highlight_all = 1
 let g:pymode_syntax = 1
@@ -674,6 +731,36 @@ let g:pymode_syntax_all = 1
  
 let g:SimpylFold_docstring_preview = 0
 let b:did_indent=1
+let g:pymode_lint_checkers = ['pyflakes']
+let g:pymode_trim_whitespaces = 0
+let g:pymode_options = 0
+let g:pymode_rope = 0
+
+let g:pymode_indent = 1
+let g:pymode_options_colorcolumn = 1
+
+" Enhanced python highlighting
+hi pythonLambdaExpr      ctermfg=105 guifg=#8787ff
+hi pythonInclude         ctermfg=68  guifg=#5f87d7 cterm=bold gui=bold
+hi pythonClass           ctermfg=167 guifg=#FF62B0 cterm=bold gui=bold
+hi pythonParameters      ctermfg=147 guifg=#AAAAFF
+hi pythonParam           ctermfg=175 guifg=#E37795
+hi pythonBrackets        ctermfg=183 guifg=#d7afff
+hi pythonClassParameters ctermfg=111 guifg=#FF5353
+hi pythonSelf            ctermfg=68  guifg=#5f87d7 cterm=bold gui=bold
+
+hi pythonDottedName      ctermfg=74  guifg=#5fafd7
+
+hi pythonError           ctermfg=196 guifg=#ff0000
+hi pythonIndentError     ctermfg=197 guifg=#ff005f
+hi pythonSpaceError      ctermfg=198 guifg=#ff0087
+
+hi pythonBuiltinType     ctermfg=74  guifg=#9191FF
+hi pythonBuiltinObj      ctermfg=71  guifg=#5faf5f
+hi pythonBuiltinFunc     ctermfg=169 guifg=#d75faf cterm=bold gui=bold
+
+hi pythonException       ctermfg=207 guifg=#CC3366 cterm=bold gui=bold
+" }
 
 " }}} 
 
@@ -790,14 +877,15 @@ let g:rspec_runner = "os_x_iterm2"
 
 " }}}
 " JavaComplete2 {{{
-autocmd FileType java setlocal omnifunc=javacomplete#Complete
+autocmd Filetype java setlocal omnifunc=javacomplete#Complete
+autocmd Filetype java setlocal completefunc=javacomplete#CompleteParamsInfo
 autocmd FileType java inoremap <buffer> . .<C-X><C-O><C-P><Down>
-
-let g:JavaComplete_MavenRepositoryDisable = 1
-let g:JavaComplete_UseFQN = 1
-let g:JavaComplete_ClosingBrace = 1
-let g:JavaComplete_JavaviDebug = 1
-let g:JavaComplete_ImportDefault = 0
+"
+"let g:JavaComplete_MavenRepositoryDisable = 1
+"let g:JavaComplete_UseFQN = 1
+"let g:JavaComplete_ClosingBrace = 1
+"let g:JavaComplete_JavaviDebug = 1
+"let g:JavaComplete_ImportDefault = 0
 " }}}
 
 " rainbow {{{
@@ -891,5 +979,40 @@ inoreabbrev <expr> __
 " }}}
 
 " YankRing {{{
-let g:yankring_history_dir = '/Users/ningyu/.vim/yankdir'
+if MultiFunc==1
+    let g:yankring_history_dir = '$HOME/.vim/yankdir'
+endif
 " }}}
+
+" CodeQuery {{{
+let g:codequery_enable_auto_clean_languages=['c','cpp','java','python','go','ruby','javascript']
+" }}}
+" 
+" 
+" Eclim {{{
+let g:EclimCompletionMethod = 'omnifunc'
+function! IsProjectFile()
+    let projectName = eclim#project#util#GetCurrentProjectName()
+    if projectName == ''
+         setlocal omnifunc=javacomplete#Complete
+    endif
+endfunction
+autocmd FileType java call IsProjectFile()
+
+" }}}
+
+let g:ascii = [
+          \ '                                         ___                                 ___       ',
+          \ '                                        /  /\         ___       ___         /__/\      ',
+          \ '                                       /  /:/_       /__/\     /  /\       |  |::\     ',
+          \ '                                      /  /:/ /\      \  \:\   /  /:/       |  |:|:\    ',
+          \ '                                     /  /:/ /::\      \  \:\ /__/::\     __|__|:|\:\   ',
+          \ '                                    /__/:/ /:/\:\ ___  \__\:\\__\/\:\__ /__/::::| \:\  ',
+          \ '                                    \  \:\/:/~/://__/\ |  |:|   \  \:\/\\  \:\~~\__\/  ',
+          \ '                                     \  \::/ /:/ \  \:\|  |:|    \__\::/ \  \:\        ',
+          \ '                                      \__\/ /:/   \  \:\__|:|    /__/:/   \  \:\       ',
+          \ '                                        /__/:/     \__\::::/     \__\/     \  \:\      ',
+          \ '                                        \__\/          ~~~~                 \__\/      ',
+          \]
+
+let g:startify_custom_header = g:ascii " + startify#fortune#boxed()
