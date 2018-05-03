@@ -179,7 +179,7 @@ Plug 'chrisbra/vim-diff-enhanced'
 Plug 'vim-scripts/DirDiff.vim'
 Plug 'Shougo/vimproc.vim'
 Plug 'idanarye/vim-vebugger'
-Plug 'L9'
+Plug 'vim-scripts/L9'
 
 Plug 'itchyny/vim-cursorword'
 " }}}}
